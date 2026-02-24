@@ -54,6 +54,50 @@ public class ErrorsEnum
         return result;
     }
 
+        private static Error result2Error(Result r)
+    {
+        Error error = null;
+        
+        switch (r) {
+        case A_BIT_DIFFERENT:
+        error = Error.FP_ROUNDING;
+            break;
+        case INFINITY:
+        error = Error.FP_OVERFLOW;
+            break;
+        case ZERO:
+        error = Error.FP_UNDERFLOW;
+            break;
+        case VERY_DIFFERENT:
+        error = Error.INT_OVERFLOW;
+            break;
+        }
+        
+        return error;
+    }
+
+        private static Result error2Result(Error e)  // Even though we are not usingit this method can still e kept due to the fact that or main is not asking for it 
+{
+    Result result = null;
+
+    switch (e) {
+    case FP_ROUNDING:
+        result = Result.A_BIT_DIFFERENT;
+        break;
+    case FP_OVERFLOW:
+        result = Result.INFINITY;
+        break;
+    case FP_UNDERFLOW:
+        result = Result.ZERO;
+        break;
+    case INT_OVERFLOW:
+        result = Result.VERY_DIFFERENT;
+        break;
+    }
+
+    return result;
+}
+
     public static void main(String[] args)
     {
         System.out.print("Known errors = ");
@@ -63,7 +107,7 @@ public class ErrorsEnum
         }
         System.out.println();
         
-        Error e = getEnumElement("error", Error.class);
-        System.out.println(e + " results in: " + error2Result(e));
+        Result r = getEnumElement("result", Result.class);
+        System.out.println(r + " results from: " + result2Error(r));
     }
 }
